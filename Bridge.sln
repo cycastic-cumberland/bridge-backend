@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Web", "Bridge.Web\Bridge.Web.csproj", "{5D396325-1B4D-446E-BB72-01CE71911371}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Domain", "Bridge.Domain\Bridge.Domain.csproj", "{55C67BB9-C61A-4DAE-A786-A2FB6A0603A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Infrastructure.Abstractions", "Bridge.Infrastructure.Abstractions\Bridge.Infrastructure.Abstractions.csproj", "{E3E1545D-4054-466F-B882-0B34D965A02D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Infrastructure.Data.Postgres", "Bridge.Infrastructure.Data.Postgres\Bridge.Infrastructure.Data.Postgres.csproj", "{7564586C-AB47-4FE6-BB33-7516E8BDA049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Core", "Bridge.Core\Bridge.Core.csproj", "{AF4EB662-95C5-4908-A242-E60C0FFC212B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bridge.Infrastructure.Data", "Bridge.Infrastructure.Data\Bridge.Infrastructure.Data.csproj", "{88FDCF6D-FCFB-472F-8882-3AD5AE522AAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D396325-1B4D-446E-BB72-01CE71911371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D396325-1B4D-446E-BB72-01CE71911371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D396325-1B4D-446E-BB72-01CE71911371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D396325-1B4D-446E-BB72-01CE71911371}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C67BB9-C61A-4DAE-A786-A2FB6A0603A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C67BB9-C61A-4DAE-A786-A2FB6A0603A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C67BB9-C61A-4DAE-A786-A2FB6A0603A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C67BB9-C61A-4DAE-A786-A2FB6A0603A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3E1545D-4054-466F-B882-0B34D965A02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3E1545D-4054-466F-B882-0B34D965A02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3E1545D-4054-466F-B882-0B34D965A02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3E1545D-4054-466F-B882-0B34D965A02D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7564586C-AB47-4FE6-BB33-7516E8BDA049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7564586C-AB47-4FE6-BB33-7516E8BDA049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7564586C-AB47-4FE6-BB33-7516E8BDA049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7564586C-AB47-4FE6-BB33-7516E8BDA049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF4EB662-95C5-4908-A242-E60C0FFC212B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF4EB662-95C5-4908-A242-E60C0FFC212B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF4EB662-95C5-4908-A242-E60C0FFC212B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF4EB662-95C5-4908-A242-E60C0FFC212B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FDCF6D-FCFB-472F-8882-3AD5AE522AAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FDCF6D-FCFB-472F-8882-3AD5AE522AAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FDCF6D-FCFB-472F-8882-3AD5AE522AAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FDCF6D-FCFB-472F-8882-3AD5AE522AAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

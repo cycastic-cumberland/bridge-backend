@@ -4,11 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Bridge.Infrastructure.Data.Configurations;
 
-internal readonly struct RoomConfigurations : IEntityTypeConfiguration<Room>
+internal readonly struct PasteConfigurations : IEntityTypeConfiguration<Paste>
 {
-    public void Configure(EntityTypeBuilder<Room> builder)
+    public void Configure(EntityTypeBuilder<Paste> builder)
     {
         builder.HasKey(p => p.Id);
+        builder.Property(p => p.TruncatedContent).HasMaxLength(Paste.TruncatedLength);
+        builder.HasIndex(p => p.RoomId);
         builder.HasIndex(p => p.ExpiredAt);
     }
 }

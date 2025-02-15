@@ -6,19 +6,16 @@ using QRCoder;
 
 namespace Bridge.Core;
 
-public class RoomService : ConfigurableService<RoomConfigurations>
+public class RoomService : ConfigurableService<RoomConfigurations>, IEphemeralCleaner<Room>
 {
     private readonly IStorageService _storageService;
-    private readonly IUrlGenerator _urlGenerator;
-    
+
     public RoomService(IAppDbContext dbContext,
         IOptions<RoomConfigurations> configurations,
-        IStorageService storageService,
-        IUrlGenerator urlGenerator)
+        IStorageService storageService)
         : base(dbContext, configurations)
     {
         _storageService = storageService;
-        _urlGenerator = urlGenerator;
     }
 
     public async Task<Guid> CreateRoomAsync(CancellationToken cancellationToken)
@@ -53,7 +50,7 @@ public class RoomService : ConfigurableService<RoomConfigurations>
         return query;
     }
 
-    public async Task CleanRoomsAsync(CancellationToken cancellationToken)
+    public async Task CleanUpAsync(CancellationToken cancellationToken)
     {
         await using var txn = await DbContext.Database.BeginTransactionAsync(cancellationToken);
         var now = DateTimeOffset.UtcNow;

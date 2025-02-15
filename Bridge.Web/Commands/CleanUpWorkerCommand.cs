@@ -13,13 +13,12 @@ public class CleanUpWorkerCommand
     [Option("--interval", ShortName = "-i", Description = "Clean up interval. Default to 10 minutes.")]
     public uint Interval { get; private set; } = 10;
 
-    public CleanUpWorkerCommand(RoomService roomService,
-        ItemService itemService,
+    public CleanUpWorkerCommand(IEnumerable<IEphemeralCleaner> ephemeralCleaners,
         ILogger<CleanUpWorkerCommand> logger)
     {
         _ = nameof(OnExecuteAsync);
         _logger = logger;
-        _cleanUpCommand = new(roomService, itemService, logger);
+        _cleanUpCommand = new(ephemeralCleaners, logger);
     }
 
     public async Task OnExecuteAsync(CancellationToken cancellationToken)

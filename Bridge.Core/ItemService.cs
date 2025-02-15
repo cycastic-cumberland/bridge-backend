@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace Bridge.Core;
 
-public class ItemService : ConfigurableService<ItemConfigurations>
+public class ItemService : ConfigurableService<ItemConfigurations>, IEphemeralCleaner<Item>
 {
     private readonly RoomService _roomService;
     private readonly IStorageService _storageService;
@@ -96,29 +96,7 @@ public class ItemService : ConfigurableService<ItemConfigurations>
             now.AddMinutes(Configurations.PreSignDownloadUrlExpirationMinutes ?? 5));
     }
 
-    public async Task ManuallyUploadFile(Guid roomId, string fileName, Stream stream, CancellationToken cancellationToken)
-    {
-        var room = await _roomService.GetRoomAsync(roomId, cancellationToken);
-        var now = DateTimeOffset.UtcNow;
-        room.ExpiredAt = now.AddMinutes(_roomService.Configurations.RoomResurrectionExpirationMinutes ?? 120);
-        var extension = Path.GetExtension(fileName);
-        var item = new Item
-        {
-            RoomId = room.Id,
-            FileName = fileName,
-            StorageKey = $"{Guid.NewGuid()}{extension}",
-            CreatedAt = now,
-            ExpiredAt = now.AddMinutes(Configurations.ItemExpirationMinutes ?? 10)
-        };
-
-        DbContext.Items.Add(item);
-        await DbContext.SaveChangesAsync(cancellationToken);
-        await _storageService.UploadAsync(item.StorageKey, stream, cancellationToken);
-        item.IsReady = true;
-        await DbContext.SaveChangesAsync(cancellationToken);
-    }
-
-    public async Task CleanItemsAsync(CancellationToken cancellationToken)
+    public async Task CleanUpAsync(CancellationToken cancellationToken)
     {
         await using var txn = await DbContext.Database.BeginTransactionAsync(cancellationToken);
         var now = DateTimeOffset.UtcNow;

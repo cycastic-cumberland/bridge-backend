@@ -7,36 +7,34 @@ namespace Bridge.Web.Commands;
 [Command("cleanup", "Clean up expired records.")]
 public class CleanUpCommand
 {
-    private readonly RoomService _roomService;
-    private readonly ItemService _itemService;
+    private readonly IEnumerable<IEphemeralCleaner> _ephemeralCleaners;
     private readonly ILogger _logger;
 
-    public CleanUpCommand(RoomService roomService,
-        ItemService itemService,
+    public CleanUpCommand(IEnumerable<IEphemeralCleaner> ephemeralCleaners,
         ILogger<CleanUpCommand> logger)
-        : this(roomService, itemService, (ILogger)logger)
+        : this(ephemeralCleaners, (ILogger)logger)
     {
     }
     
-    internal CleanUpCommand(RoomService roomService,
-        ItemService itemService,
+    internal CleanUpCommand(IEnumerable<IEphemeralCleaner> ephemeralCleaners,
         ILogger logger)
     {
         _ = nameof(OnExecuteAsync);
-        _roomService = roomService;
-        _itemService = itemService;
+        _ephemeralCleaners = ephemeralCleaners;
         _logger = logger;
     }
 
     public async Task OnExecuteAsync(CancellationToken cancellationToken)
     {
         _logger.LogInformation("Clean up started");
-        _logger.LogInformation("Cleaning expired rooms");
-        await _roomService.CleanRoomsAsync(cancellationToken);
-        _logger.LogInformation("Expired rooms removed.");
-        _logger.LogInformation("Cleaning expired items");
-        await _itemService.CleanItemsAsync(cancellationToken);
-        _logger.LogInformation("Expired items removed.");
+
+        foreach (var cleaner in _ephemeralCleaners)
+        {
+            _logger.LogInformation("Cleaning: {Type}", cleaner.EphemeralType.Name);
+            await cleaner.CleanUpAsync(cancellationToken);
+            _logger.LogInformation("Finished cleaning: {Type}", cleaner.EphemeralType.Name);
+        }
+        
         _logger.LogInformation("Clean up completed");
     }
 }

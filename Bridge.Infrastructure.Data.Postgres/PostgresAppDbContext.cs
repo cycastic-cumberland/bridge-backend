@@ -10,7 +10,9 @@ public class PostgresAppDbContext : DbContext, IAppDbContext
     public DbSet<Room> Rooms { get; set; }
 
     public DbSet<Item> Items { get; set; }
-    
+
+    public DbSet<Paste> Pastes { get; set; }
+
     public PostgresAppDbContext(DbContextOptions<PostgresAppDbContext> options)
         : base(options)
     {
@@ -22,10 +24,11 @@ public class PostgresAppDbContext : DbContext, IAppDbContext
 
         Configure<Room, RoomConfigurations>(modelBuilder);
         Configure<Item, ItemConfigurations>(modelBuilder);
+        Configure<Paste, PasteConfigurations>(modelBuilder);
     }
 
-    protected static void Configure<T, TConfig>(ModelBuilder modelBuilder)
-        where TConfig : IEntityTypeConfiguration<T>, new()
+    private static void Configure<T, TConfig>(ModelBuilder modelBuilder)
+        where TConfig : struct, IEntityTypeConfiguration<T>
         where T : class
     {
         new TConfig().Configure(modelBuilder.Entity<T>());

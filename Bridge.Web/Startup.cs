@@ -24,6 +24,7 @@ public class Startup
         services.Configure<AppSettings>(settings);
         services.Configure<RoomConfigurations>(settings.GetSection(nameof(AppSettings.RoomConfigurations)));
         services.Configure<ItemConfigurations>(settings.GetSection(nameof(AppSettings.ItemConfigurations)));
+        services.Configure<PasteConfigurations>(settings.GetSection(nameof(AppSettings.PasteConfigurations)));
         services.Configure<S3Settings>(settings.GetSection(nameof(AppSettings.S3Settings)));
 
         string connectionString = configuration.GetConnectionString("DefaultConnection") ??
@@ -39,8 +40,13 @@ public class Startup
         services.AddScoped<IStorageService, S3StorageService>();
         services.AddSingleton<IUrlGenerator, UrlGenerator>();
         services.AddScoped<QrService>();
+
         services.AddScoped<RoomService>();
         services.AddScoped<ItemService>();
+        services.AddScoped<PasteService>();
+        services.AddScoped<IEphemeralCleaner, RoomService>();
+        services.AddScoped<IEphemeralCleaner, ItemService>();
+        services.AddScoped<IEphemeralCleaner, PasteService>();
 
         var cors = settings.Get<AppSettings>()?.AllowedOrigins;
         if (!string.IsNullOrEmpty(cors))

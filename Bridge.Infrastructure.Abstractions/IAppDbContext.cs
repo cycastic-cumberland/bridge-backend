@@ -10,6 +10,8 @@ public interface IAppDbContext
 
     DbSet<Item> Items { get; }
     
+    DbSet<Paste> Pastes { get; }
+    
     DatabaseFacade Database { get; }
 
     Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default);

@@ -1,7 +1,6 @@
 using Bridge.Core;
 using Bridge.Core.Dtos;
 using Bridge.Domain;
-using Bridge.Domain.Exceptions;
 using Bridge.Web.Dto;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,17 +50,6 @@ public class ItemsController : ControllerBase
     public Task MakeReady(Guid roomId, long itemId, CancellationToken cancellationToken)
     {
         return _itemService.MakeReadyAsync(roomId, itemId, cancellationToken);
-    }
-
-    [HttpPut("upload")]
-    [ProducesResponseType(204)]
-    [ProducesResponseType(typeof(ExceptionDto), 404)]
-    public async Task ManualUpload(Guid roomId,
-        [FromForm] FileUploadDto body,
-        CancellationToken cancellationToken)
-    {
-        await using var stream = body.File.OpenReadStream();
-        await _itemService.ManuallyUploadFile(roomId, body.File.FileName, stream, cancellationToken);
     }
 
     [HttpGet("download-presigned")]
